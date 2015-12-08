@@ -1,6 +1,10 @@
-# appveyor.yml reference: http://www.appveyor.com/docs/appveyor-yml
-# build pipeline described here: http://www.appveyor.com/docs/build-configuration
-# environment vars: http://www.appveyor.com/docs/environment-variables
+# AppVeyor uses this file in preference to their web-based configuration.
+#
+# Reference documents:
+#
+#  * appveyor.yml reference: http://www.appveyor.com/docs/appveyor-yml
+#  * build pipeline described here: http://www.appveyor.com/docs/build-configuration
+#  * environment vars: http://www.appveyor.com/docs/environment-variables
 
 #---------------------------------#
 #      general configuration      #
@@ -13,6 +17,9 @@ branches:
   # whitelist
   only:
     - appveyor
+    - master
+    - develop
+    - develop-v2
 
 #---------------------------------#
 #    environment configuration    #
