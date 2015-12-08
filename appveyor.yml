@@ -48,7 +48,7 @@ shallow_clone: true
 # platform: x86 will cause MSBuild to try to build the solution's "x86" target,
 # but CMake doesn't create an 'x86' target, it creates a "Win32" target.
 platform:
-  - Any CPU
+  - Win32
   - x64
 
 # build Configuration, i.e. Debug, Release, etc.
@@ -56,20 +56,12 @@ configuration:
   - Debug
   - Release
 
-# environment variables
-environment:
-  matrix:
-  - platform: Any CPU
-    my_cmake_arch: Win32
-  - platform: x64
-    my_cmake_arch: x64
-
 # scripts to run before build
 # NB: let cmake auto-detect the MSVS version, but specify an arch with -A
 before_build:
   - echo Running cmake...
   - cd c:\projects\catch
-  - cmake -Hprojects/CMake -BBuild -A%my_cmake_arch%
+  - cmake -Hprojects/CMake -BBuild -A%PLATFORM%
   
 # build with MSBuild
 build:
