@@ -37,8 +37,11 @@ shallow_clone: true
 #---------------------------------#
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
+# NB: Workaround: Use platform:"Any CPU" to build x86 because
+# platform: x86 will cause MSBuild to try to build the solution's "x86" target,
+# but CMake doesn't create an 'x86' target, it creates a "Win32" target.
 platform:
-  - x86
+  - Any CPU
   - x64
 
 # build Configuration, i.e. Debug, Release, etc.
@@ -50,7 +53,8 @@ configuration:
 before_build:
   - echo Running cmake...
   - cd c:\projects\catch
-  - cmake -Hprojects/CMake -BBuild
+  - if %PLATFORM%==x64 (set USE_CMAKE_GENERATOR="Visual Studio 14 2015 Win64") else (set USE_CMAKE_GENERATOR="Visual Studio 14 2015")
+  - cmake -Hprojects/CMake -BBuild -G%USE_CMAKE_GENERATOR%
   
 # build with MSBuild
 build:
