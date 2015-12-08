@@ -1,0 +1,71 @@
+# appveyor.yml reference: http://www.appveyor.com/docs/appveyor-yml
+# build pipeline described here: http://www.appveyor.com/docs/build-configuration
+# environment vars: http://www.appveyor.com/docs/environment-variables
+
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: 1.0.{build}
+
+branches:
+  # whitelist
+  only:
+    - appveyor
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Operating system (build VM template)
+os: Visual Studio 2015
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - git config --global core.autocrlf input
+
+# clone directory
+clone_folder: c:\projects\catch
+
+# fetch repository as zip archive
+shallow_clone: true
+
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform:
+  - x86
+  - x64
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration:
+  - Debug
+  - Release
+
+init: []
+
+install: []
+
+# scripts to run before build
+before_build:
+  - echo Running cmake...
+  - cd c:\projects\catch
+  - cmake -Hprojects/CMake -BBuild
+  
+# build with MSBuild
+build:
+  parallel: true                # enable MSBuild parallel builds
+  project: Build\Catch.sln      # path to Visual Studio solution or project
+
+  # MSBuild verbosity level
+  verbosity: normal             # quiet|minimal|normal|detailed
+
+  
+test_script:
+  - cd Build
+  - ctest -V -j 1 -C %CONFIGURATION%
+  
