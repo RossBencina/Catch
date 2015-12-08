@@ -49,12 +49,20 @@ configuration:
   - Debug
   - Release
 
+# environment variables
+environment:
+  matrix:
+  - platform: Any CPU
+    my_cmake_arch: Win32
+  - platform: x86
+    my_cmake_arch: x64
+
 # scripts to run before build
+# NB: let cmake auto-detect the MSVS version, but specify an arch with -A
 before_build:
   - echo Running cmake...
   - cd c:\projects\catch
-  - if %PLATFORM%==x64 (set USE_CMAKE_GENERATOR="Visual Studio 14 2015 Win64") else (set USE_CMAKE_GENERATOR="Visual Studio 14 2015")
-  - cmake -Hprojects/CMake -BBuild -G%USE_CMAKE_GENERATOR%
+  - cmake -Hprojects/CMake -BBuild -A%my_cmake_arch%
   
 # build with MSBuild
 build:
