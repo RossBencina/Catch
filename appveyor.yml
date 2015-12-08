@@ -43,15 +43,14 @@ shallow_clone: true
 #       build configuration       #
 #---------------------------------#
 
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
-# NB: Workaround: Use platform:"Any CPU" to build x86 because
-# platform: x86 will cause MSBuild to try to build the solution's "x86" target,
-# but CMake doesn't create an 'x86' target, it creates a "Win32" target.
+# build platforms, i.e. x86, x64, Any CPU. This setting is optional.
+# NB: Use Win32 and x64. These are the CMake-compatible solution platform names.
+# This allows us to pass %PLATFORM% to CMake -A.
 platform:
   - Win32
   - x64
 
-# build Configuration, i.e. Debug, Release, etc.
+# build Configurations, i.e. Debug, Release, etc.
 configuration:
   - Debug
   - Release
@@ -65,14 +64,13 @@ before_build:
   
 # build with MSBuild
 build:
-  parallel: true                # enable MSBuild parallel builds
   project: Build\Catch.sln      # path to Visual Studio solution or project
 
+  parallel: true                # enable MSBuild parallel builds
   # MSBuild verbosity level
-  verbosity: normal             # quiet|minimal|normal|detailed
+  verbosity: minimal            # quiet|minimal|normal|detailed
 
-  
 test_script:
-  - cd Build
+  - cd c:\projects\catch\Build
   - ctest -V -j 1 -C %CONFIGURATION%
   
