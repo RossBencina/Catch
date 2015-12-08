@@ -450,6 +450,7 @@ TEST_CASE( "Long text is truncted", "[Text][Truncated]" ) {
 
 }
 
+#if 0
 inline void manuallyRegisteredTestFunction() {
     SUCCEED( "was called" );
 }
@@ -459,3 +460,4 @@ struct AutoTestReg {
     }
 };
 AutoTestReg autoTestReg;
+#endif
