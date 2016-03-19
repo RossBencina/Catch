@@ -837,7 +837,7 @@ namespace Clara {
                                                         .setWidth( width - maxWidth - 3 ) );
 
                 for( std::size_t i = 0; i < (std::max)( usage.size(), desc.size() ); ++i ) {
-                    std::string usageCol = i < usage.size() ? usage[i] : "";
+                    std::string usageCol = i < usage.size() ? usage[i] : std::string();
                     os << usageCol;
 
                     if( i < desc.size() && !desc[i].empty() )

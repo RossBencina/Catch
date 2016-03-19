@@ -217,7 +217,7 @@ namespace Catch {
         virtual std::string getCurrentTestName() const {
             return m_activeTestCase
                 ? m_activeTestCase->getTestCaseInfo().name
-                : "";
+                : std::string();
         }
 
         virtual const AssertionResult* getLastResult() const {
@@ -247,11 +247,11 @@ namespace Catch {
             deltaTotals.testCases.failed = 1;
             m_reporter->testCaseEnded( TestCaseStats(   testInfo,
                                                         deltaTotals,
-                                                        "",
-                                                        "",
+                                                        std::string(),
+                                                        std::string(),
                                                         false ) );
             m_totals.testCases.failed++;
-            testGroupEnded( "", m_totals, 1, 1 );
+            testGroupEnded( std::string(), m_totals, 1, 1 );
             m_reporter->testRunEnded( TestRunStats( m_runInfo, m_totals, false ) );
         }
 

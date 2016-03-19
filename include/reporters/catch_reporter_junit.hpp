@@ -42,8 +42,8 @@ namespace Catch {
 
         virtual void testGroupStarting( GroupInfo const& groupInfo ) CATCH_OVERRIDE {
             suiteTimer.start();
-            stdOutForSuite.str("");
-            stdErrForSuite.str("");
+            stdOutForSuite.str(std::string());
+            stdErrForSuite.str(std::string());
             unexpectedExceptions = 0;
             CumulativeReporterBase::testGroupStarting( groupInfo );
         }
