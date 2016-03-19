@@ -73,8 +73,13 @@ namespace Catch {
                 m_headerPrinted = false;
             }
             else {
+#if 1
+                if (m_config->showDurations() == ShowDurations::Always && _sectionStats.durationInSeconds > 0.050)
+                    stream << _sectionStats.durationInSeconds << " | seconds | " << _sectionStats.sectionInfo.name << std::endl;
+#else
                 if( m_config->showDurations() == ShowDurations::Always )
                     stream << _sectionStats.sectionInfo.name << " completed in " << _sectionStats.durationInSeconds << "s" << std::endl;
+#endif
             }
             StreamingReporterBase::sectionEnded( _sectionStats );
         }
