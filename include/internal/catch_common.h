@@ -107,7 +107,7 @@ namespace Catch {
         bool operator == ( SourceLineInfo const& other ) const;
         bool operator < ( SourceLineInfo const& other ) const;
 
-        std::string file;
+        const char *file;
         std::size_t line;
     };
 
