@@ -2933,7 +2933,7 @@ namespace Catch {
             id value = performOptionalSelector( cls, sel );
             if( value )
                 return [(NSString*)value UTF8String];
-            return "";
+            return std::string();
         }
     }
 
@@ -8820,7 +8820,7 @@ namespace Catch {
                 return new T( config );
             }
             virtual std::string getDescription() const {
-                return "";
+                return std::string();
             }
         };
 
@@ -10145,7 +10145,7 @@ namespace Catch {
         // - green: Passed [both/all] N tests cases with M assertions.
 
         std::string bothOrAll( std::size_t count ) const {
-            return count == 1 ? "" : count == 2 ? "both " : "all " ;
+            return count == 1 ? std::string() : count == 2 ? "both " : "all " ;
         }
 
         void printTotals( const Totals& totals ) const {
@@ -10156,7 +10156,7 @@ namespace Catch {
                 Colour colour( Colour::ResultError );
                 const std::string qualify_assertions_failed =
                     totals.assertions.failed == totals.assertions.total() ?
-                        bothOrAll( totals.assertions.failed ) : "";
+                        bothOrAll( totals.assertions.failed ) : std::string();
                 stream <<
                     "Failed " << bothOrAll( totals.testCases.failed )
                               << pluralise( totals.testCases.failed, "test case"  ) << ", "

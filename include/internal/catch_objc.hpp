@@ -66,7 +66,7 @@ namespace Catch {
             id value = performOptionalSelector( cls, sel );
             if( value )
                 return [(NSString*)value UTF8String];
-            return "";
+            return std::string();
         }
     }
 
