@@ -80,7 +80,7 @@ namespace Catch {
         AssertionInfo m_assertionInfo;
         AssertionResultData m_data;
         struct ExprComponents {
-            ExprComponents() : testFalse( false ), op(0) {}
+            ExprComponents() : testFalse( false ), op("") {}
             bool testFalse;
             std::string lhs, rhs;
             const char *op;
