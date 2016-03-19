@@ -95,7 +95,7 @@ namespace Catch {
 
         virtual void registerTest( TestCase const& testCase ) {
             std::string name = testCase.getTestCaseInfo().name;
-            if( name == "" ) {
+            if( name.empty() ) {
                 std::ostringstream oss;
                 oss << "Anonymous test case " << ++m_unnamedCount;
                 return registerTest( testCase.withName( oss.str() ) );
