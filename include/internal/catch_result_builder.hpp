@@ -132,7 +132,7 @@ namespace Catch {
         data.message = m_stream.oss.str();
         data.reconstructedExpression = reconstructExpression();
         if( m_exprComponents.testFalse ) {
-            if( m_exprComponents.op == "" )
+            if( m_exprComponents.op.empty() )
                 data.reconstructedExpression = "!" + data.reconstructedExpression;
             else
                 data.reconstructedExpression = "!(" + data.reconstructedExpression + ")";
@@ -140,7 +140,7 @@ namespace Catch {
         return AssertionResult( m_assertionInfo, data );
     }
     std::string ResultBuilder::reconstructExpression() const {
-        if( m_exprComponents.op == "" )
+        if( m_exprComponents.op.empty() )
             return m_exprComponents.lhs.empty() ? m_assertionInfo.capturedExpression : m_exprComponents.op + m_exprComponents.lhs;
         else if( m_exprComponents.op == "matches" )
             return m_exprComponents.lhs + " " + m_exprComponents.rhs;
