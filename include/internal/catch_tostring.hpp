@@ -10,6 +10,7 @@
 
 #include "catch_tostring.h"
 #include "catch_interfaces_config.h"
+#include "catch_string_concat.hpp"
 
 namespace Catch {
 
@@ -69,7 +70,7 @@ std::string toString( std::string const& value ) {
             }
         }
     }
-    return "\"" + s + "\"";
+    return string_concat('\"', s, '\"');
 }
 std::string toString( std::wstring const& value ) {
 
