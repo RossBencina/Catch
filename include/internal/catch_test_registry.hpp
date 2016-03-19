@@ -69,6 +69,19 @@ struct AutoReg {
                 lineInfo );
     }
 
+    AutoReg
+        (ITestCase *testCase,
+            char const* className,
+            NameAndDesc const& nameAndDesc,
+            SourceLineInfo const& lineInfo) {
+
+        registerTestCase
+            (testCase,
+                className,
+                nameAndDesc,
+                lineInfo);
+    }
+
     ~AutoReg();
 
 private:
@@ -95,6 +108,10 @@ void registerTestCaseFunction
     ///////////////////////////////////////////////////////////////////////////////
     #define INTERNAL_CATCH_METHOD_AS_TEST_CASE( QualifiedMethod, ... ) \
         namespace{ Catch::AutoReg INTERNAL_CATCH_UNIQUE_NAME( autoRegistrar )( &QualifiedMethod, "&" #QualifiedMethod, Catch::NameAndDesc( __VA_ARGS__ ), CATCH_INTERNAL_LINEINFO ); }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    #define INTERNAL_CATCH_CLASS_METHOD_AS_TEST_CASE( Class, QualifiedMethod, ... ) \
+        namespace{ Catch::AutoReg INTERNAL_CATCH_UNIQUE_NAME( autoRegistrar )( new Catch::MethodTestCase<Class>( &QualifiedMethod ), "&" #QualifiedMethod, Catch::NameAndDesc( __VA_ARGS__ ), CATCH_INTERNAL_LINEINFO ); }
 
     ///////////////////////////////////////////////////////////////////////////////
     #define INTERNAL_CATCH_TEST_CASE_METHOD2( TestName, ClassName, ... )\
@@ -124,6 +141,10 @@ void registerTestCaseFunction
     ///////////////////////////////////////////////////////////////////////////////
     #define INTERNAL_CATCH_METHOD_AS_TEST_CASE( QualifiedMethod, Name, Desc ) \
         namespace{ Catch::AutoReg INTERNAL_CATCH_UNIQUE_NAME( autoRegistrar )( &QualifiedMethod, "&" #QualifiedMethod, Catch::NameAndDesc( Name, Desc ), CATCH_INTERNAL_LINEINFO ); }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    #define INTERNAL_CATCH_CLASS_METHOD_AS_TEST_CASE( Class, QualifiedMethod, Name, Desc ) \
+        namespace{ Catch::AutoReg INTERNAL_CATCH_UNIQUE_NAME( autoRegistrar )( new Catch::MethodTestCase<Class>( &QualifiedMethod ), "&" #QualifiedMethod, Catch::NameAndDesc( Name, Desc ), CATCH_INTERNAL_LINEINFO ); }
 
     ///////////////////////////////////////////////////////////////////////////////
     #define INTERNAL_CATCH_TEST_CASE_METHOD2( TestCaseName, ClassName, TestName, Desc )\
