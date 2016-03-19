@@ -146,7 +146,8 @@ namespace Catch {
             return m_exprComponents.lhs.empty() ? m_assertionInfo.capturedExpression : m_exprComponents.lhs;
         else if( std::strcmp(m_exprComponents.op, "matches") == 0 )
             return string_concat(m_exprComponents.lhs, ' ', m_exprComponents.rhs);
-        else if( std::strcmp(m_exprComponents.op, "!") != 0) {
+        //else if( std::strcmp(m_exprComponents.op, "!") != 0) {
+        else if (m_exprComponents.op[0] != '!' && m_exprComponents.op[1] != '\0') {
             if( m_exprComponents.lhs.size() + m_exprComponents.rhs.size() < 40 &&
                 m_exprComponents.lhs.find('\n') == std::string::npos &&
                 m_exprComponents.rhs.find('\n') == std::string::npos )
