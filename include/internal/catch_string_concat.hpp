@@ -9,12 +9,14 @@
 #ifndef TWOBLUECUBES_CATCH_STRING_CONCAT_HPP_INCLUDED
 #define TWOBLUECUBES_CATCH_STRING_CONCAT_HPP_INCLUDED
 
-#include <cstddef>
+#include <cstring>
 #include <string>
 
 namespace Catch {
 
-    inline std::size_t string_length(char x) { return 1; }
+    inline std::size_t string_length(char c) { return 1; }
+
+    inline std::size_t string_length(const char *s) { return std::strlen(s); }
 
     template<std::size_t N>
     inline std::size_t string_length(const char(&s)[N]) { return N - 1; }

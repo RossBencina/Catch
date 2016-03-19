@@ -59,7 +59,7 @@ namespace Catch {
         ResultBuilder& setResultType( bool result );
         ResultBuilder& setLhs( std::string const& lhs );
         ResultBuilder& setRhs( std::string const& rhs );
-        ResultBuilder& setOp( std::string const& op );
+        ResultBuilder& setOp( const char *op );
 
         void endExpression();
 
@@ -80,9 +80,10 @@ namespace Catch {
         AssertionInfo m_assertionInfo;
         AssertionResultData m_data;
         struct ExprComponents {
-            ExprComponents() : testFalse( false ) {}
+            ExprComponents() : testFalse( false ), op(0) {}
             bool testFalse;
-            std::string lhs, rhs, op;
+            std::string lhs, rhs;
+            const char *op;
         } m_exprComponents;
         CopyableStream m_stream;
 

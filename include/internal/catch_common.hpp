@@ -12,6 +12,9 @@
 
 namespace Catch {
 
+    inline bool string_empty(const char *s) {
+        return s == 0 || s[0] == '\0';
+    }
     bool startsWith( std::string const& s, std::string const& prefix ) {
         return s.size() >= prefix.size() && s.substr( 0, prefix.size() ) == prefix;
     }
@@ -73,7 +76,7 @@ namespace Catch {
         line( other.line )
     {}
     bool SourceLineInfo::empty() const {
-        return file == 0 || file[0] == '\0';
+        return string_empty(file);
     }
     bool SourceLineInfo::operator == (SourceLineInfo const& other) const {
         return line == other.line && ((file == other.file) || std::strcmp(file, other.file) == 0);

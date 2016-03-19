@@ -8,6 +8,7 @@
 #ifndef TWOBLUECUBES_CATCH_RESULT_BUILDER_HPP_INCLUDED
 #define TWOBLUECUBES_CATCH_RESULT_BUILDER_HPP_INCLUDED
 
+#include "catch_common.h"
 #include "catch_result_builder.h"
 #include "catch_context.h"
 #include "catch_interfaces_config.h"
@@ -50,7 +51,7 @@ namespace Catch {
         m_exprComponents.rhs = rhs;
         return *this;
     }
-    ResultBuilder& ResultBuilder::setOp( std::string const& op ) {
+    ResultBuilder& ResultBuilder::setOp( const char *op ) {
         m_exprComponents.op = op;
         return *this;
     }
@@ -133,7 +134,7 @@ namespace Catch {
         data.message = m_stream.oss.str();
         data.reconstructedExpression = reconstructExpression();
         if( m_exprComponents.testFalse ) {
-            if( m_exprComponents.op.empty() )
+            if( string_empty(m_exprComponents.op) )
                 data.reconstructedExpression = string_concat('!', data.reconstructedExpression);
             else
                 data.reconstructedExpression = string_concat("!(", data.reconstructedExpression, ')');
@@ -141,11 +142,11 @@ namespace Catch {
         return AssertionResult( m_assertionInfo, data );
     }
     std::string ResultBuilder::reconstructExpression() const {
-        if( m_exprComponents.op.empty() )
-            return m_exprComponents.lhs.empty() ? m_assertionInfo.capturedExpression : string_concat(m_exprComponents.op, m_exprComponents.lhs);
-        else if( m_exprComponents.op == "matches" )
+        if( string_empty(m_exprComponents.op) )
+            return m_exprComponents.lhs.empty() ? m_assertionInfo.capturedExpression : m_exprComponents.lhs;
+        else if( std::strcmp(m_exprComponents.op, "matches") == 0 )
             return string_concat(m_exprComponents.lhs, ' ', m_exprComponents.rhs);
-        else if( m_exprComponents.op != "!" ) {
+        else if( std::strcmp(m_exprComponents.op, "!") != 0) {
             if( m_exprComponents.lhs.size() + m_exprComponents.rhs.size() < 40 &&
                 m_exprComponents.lhs.find('\n') == std::string::npos &&
                 m_exprComponents.rhs.find('\n') == std::string::npos )
