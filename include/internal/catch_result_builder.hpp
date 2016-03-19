@@ -136,7 +136,7 @@ namespace Catch {
             if( m_exprComponents.op.empty() )
                 data.reconstructedExpression = string_concat('!', data.reconstructedExpression);
             else
-                data.reconstructedExpression = string_concat("!(", data.reconstructedExpression, ")");
+                data.reconstructedExpression = string_concat("!(", data.reconstructedExpression, ')');
         }
         return AssertionResult( m_assertionInfo, data );
     }
