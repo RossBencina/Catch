@@ -40,6 +40,7 @@ namespace Catch {
                 visitChar( m_arg[m_pos] );
             if( m_mode == Name )
                 addPattern<TestSpec::NamePattern>();
+            addFilter(); // added this line -- rossb
             return *this;
         }
         TestSpec testSpec() {
