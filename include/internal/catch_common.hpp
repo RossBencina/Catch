@@ -12,7 +12,7 @@
 
 namespace Catch {
 
-    inline bool string_empty(const char *s) {
+    inline bool isEmpty( const char *s ) { // operates on non-null ptrs only
         return s[0] == '\0';
     }
     bool startsWith( std::string const& s, std::string const& prefix ) {
@@ -76,7 +76,7 @@ namespace Catch {
         line( other.line )
     {}
     bool SourceLineInfo::empty() const {
-        return string_empty(file);
+        return isEmpty( file );
     }
     bool SourceLineInfo::operator == (SourceLineInfo const& other) const {
         return line == other.line && ((file == other.file) || std::strcmp(file, other.file) == 0);
