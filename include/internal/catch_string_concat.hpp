@@ -14,28 +14,26 @@
 
 namespace Catch {
 
-    inline std::size_t string_length(char c) { return 1; }
-
-    inline std::size_t string_length(const char *s) { return std::strlen(s); }
-
-    template<std::size_t N>
-    inline std::size_t string_length(const char(&s)[N]) { return N - 1; }
-
-    inline std::size_t string_length(const std::string& s) { return s.size(); }
+    namespace Detail {
+        inline std::size_t stringoidSize( char c )               { return 1; }
+        inline std::size_t stringoidSize( const char *s )        { return std::strlen(s); }
+        inline std::size_t stringoidSize( const std::string& s ) { return s.size(); }
+    } // namespace Detail
 
     template<typename T1, typename T2>
-    inline std::string string_concat(const T1& s1, const T2& s2) {
+    inline std::string concatenateStrings( const T1& s1, const T2& s2 ) {
         std::string result;
-        result.reserve(string_length(s1) + string_length(s2));
+        result.reserve( Detail::stringoidSize( s1 ) + Detail::stringoidSize( s2 ) );
         result += s1;
         result += s2;
         return result;
     }
 
     template<typename T1, typename T2, typename T3>
-    inline std::string string_concat(const T1& s1, const T2& s2, const T3& s3) {
+    inline std::string concatenateStrings( const T1& s1, const T2& s2, const T3& s3 ) {
         std::string result;
-        result.reserve(string_length(s1) + string_length(s2) + string_length(s3));
+        result.reserve( Detail::stringoidSize( s1 ) + Detail::stringoidSize( s2 )
+            + Detail::stringoidSize( s3 ) );
         result += s1;
         result += s2;
         result += s3;
@@ -43,9 +41,10 @@ namespace Catch {
     }
 
     template<typename T1, typename T2, typename T3, typename T4>
-    inline std::string string_concat(const T1& s1, const T2& s2, const T3& s3, const T4& s4) {
+    inline std::string concatenateStrings( const T1& s1, const T2& s2, const T3& s3, const T4& s4 ) {
         std::string result;
-        result.reserve(string_length(s1) + string_length(s2) + string_length(s3) + string_length(s4));
+        result.reserve( Detail::stringoidSize( s1 ) + Detail::stringoidSize( s2 )
+            + Detail::stringoidSize( s3 ) + Detail::stringoidSize( s4 ) );
         result += s1;
         result += s2;
         result += s3;
@@ -54,9 +53,10 @@ namespace Catch {
     }
 
     template<typename T1, typename T2, typename T3, typename T4, typename T5>
-    inline std::string string_concat(const T1& s1, const T2& s2, const T3& s3, const T4& s4, const T5& s5) {
+    inline std::string concatenateStrings( const T1& s1, const T2& s2, const T3& s3, const T4& s4, const T5& s5 ) {
         std::string result;
-        result.reserve(string_length(s1) + string_length(s2) + string_length(s3) + string_length(s4) + string_length(s5));
+        result.reserve( Detail::stringoidSize( s1 ) + Detail::stringoidSize( s2 )
+            + Detail::stringoidSize( s3 ) + Detail::stringoidSize( s4 ) + Detail::stringoidSize( s5 ) );
         result += s1;
         result += s2;
         result += s3;

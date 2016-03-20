@@ -23,7 +23,7 @@ namespace Catch {
     std::string capturedExpressionWithSecondArgument( std::string const& capturedExpression, std::string const& secondArg ) {
         return secondArg.empty() || secondArg == "\"\""
             ? capturedExpression
-            : string_concat(capturedExpression, ", ", secondArg);
+            : concatenateStrings(capturedExpression, ", ", secondArg);
     }
     ResultBuilder::ResultBuilder(   char const* macroName,
                                     SourceLineInfo const& lineInfo,
@@ -135,9 +135,9 @@ namespace Catch {
         data.reconstructedExpression = reconstructExpression();
         if( m_exprComponents.testFalse ) {
             if( string_empty(m_exprComponents.op) )
-                data.reconstructedExpression = string_concat('!', data.reconstructedExpression);
+                data.reconstructedExpression = concatenateStrings('!', data.reconstructedExpression);
             else
-                data.reconstructedExpression = string_concat("!(", data.reconstructedExpression, ')');
+                data.reconstructedExpression = concatenateStrings("!(", data.reconstructedExpression, ')');
         }
         return AssertionResult( m_assertionInfo, data );
     }
@@ -145,15 +145,15 @@ namespace Catch {
         if( string_empty(m_exprComponents.op) )
             return m_exprComponents.lhs.empty() ? m_assertionInfo.capturedExpression : m_exprComponents.lhs;
         else if( std::strcmp(m_exprComponents.op, "matches") == 0 )
-            return string_concat(m_exprComponents.lhs, ' ', m_exprComponents.rhs);
+            return concatenateStrings(m_exprComponents.lhs, ' ', m_exprComponents.rhs);
         //else if( std::strcmp(m_exprComponents.op, "!") != 0) {
         else if (!(m_exprComponents.op[0] == '!' && m_exprComponents.op[1] == '\0')) {
             if( m_exprComponents.lhs.size() + m_exprComponents.rhs.size() < 40 &&
                 m_exprComponents.lhs.find('\n') == std::string::npos &&
                 m_exprComponents.rhs.find('\n') == std::string::npos )
-                return string_concat(m_exprComponents.lhs, ' ', m_exprComponents.op, ' ', m_exprComponents.rhs);
+                return concatenateStrings(m_exprComponents.lhs, ' ', m_exprComponents.op, ' ', m_exprComponents.rhs);
             else
-                return string_concat(m_exprComponents.lhs, '\n', m_exprComponents.op, '\n', m_exprComponents.rhs);
+                return concatenateStrings(m_exprComponents.lhs, '\n', m_exprComponents.op, '\n', m_exprComponents.rhs);
         }
         else
             return "{can't expand - use " + m_assertionInfo.macroName + "_FALSE( " + m_assertionInfo.capturedExpression.substr(1) + " ) instead of " + m_assertionInfo.macroName + "( " + m_assertionInfo.capturedExpression + " ) for better diagnostics}";
