@@ -97,7 +97,7 @@ namespace Catch {
                 m_xml.startElement( "Expression" )
                     .writeAttribute( "success", assertionResult.succeeded() )
 					.writeAttribute( "type", assertionResult.getTestMacroName() )
-                    .writeAttribute( "filename", std::string(assertionResult.getSourceInfo().file) )
+                    .writeAttribute( "filename", std::string( assertionResult.getSourceInfo().file ) )
                     .writeAttribute( "line", assertionResult.getSourceInfo().line );
 
                 m_xml.scopedElement( "Original" )
@@ -110,13 +110,13 @@ namespace Catch {
             switch( assertionResult.getResultType() ) {
                 case ResultWas::ThrewException:
                     m_xml.scopedElement( "Exception" )
-                        .writeAttribute( "filename", std::string(assertionResult.getSourceInfo().file) )
+                        .writeAttribute( "filename", std::string( assertionResult.getSourceInfo().file ) )
                         .writeAttribute( "line", assertionResult.getSourceInfo().line )
                         .writeText( assertionResult.getMessage() );
                     break;
                 case ResultWas::FatalErrorCondition:
                     m_xml.scopedElement( "Fatal Error Condition" )
-                        .writeAttribute( "filename", std::string(assertionResult.getSourceInfo().file) )
+                        .writeAttribute( "filename", std::string( assertionResult.getSourceInfo().file ) )
                         .writeAttribute( "line", assertionResult.getSourceInfo().line )
                         .writeText( assertionResult.getMessage() );
                     break;

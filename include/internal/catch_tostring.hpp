@@ -70,7 +70,7 @@ std::string toString( std::string const& value ) {
             }
         }
     }
-    return concatenateStrings('\"', s, '\"');
+    return concatenateStrings( '\"', s, '\"' );
 }
 std::string toString( std::wstring const& value ) {
 
