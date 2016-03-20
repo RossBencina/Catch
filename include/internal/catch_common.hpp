@@ -78,11 +78,11 @@ namespace Catch {
     bool SourceLineInfo::empty() const {
         return isEmpty( file );
     }
-    bool SourceLineInfo::operator == (SourceLineInfo const& other) const {
-        return line == other.line && ((file == other.file) || std::strcmp(file, other.file) == 0);
+    bool SourceLineInfo::operator == ( SourceLineInfo const& other ) const {
+        return line == other.line && ( file == other.file || std::strcmp( file, other.file ) == 0 );
     }
-    bool SourceLineInfo::operator < (SourceLineInfo const& other) const {
-        return line < other.line || (line == other.line && (std::strcmp(file, other.file) < 0));
+    bool SourceLineInfo::operator < ( SourceLineInfo const& other ) const {
+        return line < other.line || ( line == other.line && std::strcmp( file, other.file ) < 0 );
     }
 
     void seedRng( IConfig const& config ) {
