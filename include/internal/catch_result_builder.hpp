@@ -134,7 +134,7 @@ namespace Catch {
         data.message = m_stream.oss.str();
         data.reconstructedExpression = reconstructExpression();
         if( m_exprComponents.testFalse ) {
-            if( string_empty(m_exprComponents.op) )
+            if( isEmpty( m_exprComponents.op ) )
                 data.reconstructedExpression = concatenateStrings('!', data.reconstructedExpression);
             else
                 data.reconstructedExpression = concatenateStrings("!(", data.reconstructedExpression, ')');
@@ -142,7 +142,7 @@ namespace Catch {
         return AssertionResult( m_assertionInfo, data );
     }
     std::string ResultBuilder::reconstructExpression() const {
-        if( string_empty(m_exprComponents.op) )
+        if( isEmpty( m_exprComponents.op ) )
             return m_exprComponents.lhs.empty() ? m_assertionInfo.capturedExpression : m_exprComponents.lhs;
         else if( std::strcmp(m_exprComponents.op, "matches") == 0 )
             return concatenateStrings(m_exprComponents.lhs, ' ', m_exprComponents.rhs);
