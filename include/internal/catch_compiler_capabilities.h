@@ -19,6 +19,7 @@
 // CATCH_CONFIG_CPP11_LONG_LONG : is long long supported?
 // CATCH_CONFIG_CPP11_OVERRIDE : is override supported?
 // CATCH_CONFIG_CPP11_UNIQUE_PTR : is unique_ptr supported (otherwise use auto_ptr)
+// CATCH_CONFIG_CPP11_TO_STRING : is to_string supported (otherwise use ostringstream)
 
 // CATCH_CONFIG_CPP11_OR_GREATER : Is C++11 supported?
 
@@ -104,6 +105,10 @@
 #   define CATCH_INTERNAL_CONFIG_CPP11_UNIQUE_PTR
 #endif
 
+#if (_MSC_VER >= 1800 ) // (VC++ 12 (VS2013))
+#define CATCH_INTERNAL_CONFIG_CPP11_TO_STRING
+#endif
+
 #if (_MSC_VER >= 1900 ) // (VC++ 13 (VS2015))
 #define CATCH_INTERNAL_CONFIG_CPP11_NOEXCEPT
 #define CATCH_INTERNAL_CONFIG_CPP11_GENERATED_METHODS
@@ -173,6 +178,9 @@
 #    define CATCH_INTERNAL_CONFIG_CPP11_UNIQUE_PTR
 #  endif
 
+#if defined(CATCH_INTERNAL_CONFIG_CPP11_TO_STRING) && !defined(CATCH_CONFIG_NO_TO_STRING) && !defined(CATCH_CONFIG_CPP11_TO_STRING) && !defined(CATCH_CONFIG_NO_CPP11)
+#   define CATCH_CONFIG_CPP11_TO_STRING
+#endif
 
 #endif // __cplusplus >= 201103L
 
@@ -203,6 +211,9 @@
 #endif
 #if defined(CATCH_INTERNAL_CONFIG_CPP11_UNIQUE_PTR) && !defined(CATCH_CONFIG_NO_UNIQUE_PTR) && !defined(CATCH_CONFIG_CPP11_UNIQUE_PTR) && !defined(CATCH_CONFIG_NO_CPP11)
 #   define CATCH_CONFIG_CPP11_UNIQUE_PTR
+#endif
+#if defined(CATCH_INTERNAL_CONFIG_CPP11_TO_STRING) && !defined(CATCH_CONFIG_NO_TO_STRING) && !defined(CATCH_CONFIG_CPP11_TO_STRING) && !defined(CATCH_CONFIG_NO_CPP11)
+#   define CATCH_CONFIG_CPP11_TO_STRING
 #endif
 #if defined(CATCH_INTERNAL_CONFIG_COUNTER) && !defined(CATCH_CONFIG_NO_COUNTER) && !defined(CATCH_CONFIG_COUNTER)
 #   define CATCH_CONFIG_COUNTER
