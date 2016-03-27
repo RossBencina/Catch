@@ -99,24 +99,41 @@ std::string toString( wchar_t* const value )
 	return Catch::toString( static_cast<const wchar_t*>( value ) );
 }
 
+#ifdef CATCH_CONFIG_CPP11_TO_STRING
+    template<typename T>
+    inline std::string iToString(T value)
+    {
+        if (value > Detail::hexThreshold) {
+            std::ostringstream oss;
+            oss << value << " (0x" << std::hex << value << ")";
+            return oss.str();
+        }
+        else {
+            return std::to_string(value);
+        }
+    }
+#else
+    template<typename T>
+    inline std::string iToString(T value)
+    {
+        std::ostringstream oss;
+        oss << value;
+        if( value > Detail::hexThreshold )
+            oss << " (0x" << std::hex << value << ")";
+        return oss.str();
+    }
+#endif
+
 std::string toString( int value ) {
-    std::ostringstream oss;
-    oss << value;
-    if( value > Detail::hexThreshold )
-        oss << " (0x" << std::hex << value << ")";
-    return oss.str();
+    return iToString(value);
 }
 
 std::string toString( unsigned long value ) {
-    std::ostringstream oss;
-    oss << value;
-    if( value > Detail::hexThreshold )
-        oss << " (0x" << std::hex << value << ")";
-    return oss.str();
+    return iToString(value);
 }
 
 std::string toString( unsigned int value ) {
-    return Catch::toString( static_cast<unsigned long>( value ) );
+    return iToString(value);
 }
 
 template<typename T>
@@ -148,7 +165,7 @@ std::string toString( bool value ) {
 
 std::string toString( char value ) {
     return value < ' '
-        ? toString( static_cast<unsigned int>( value ) )
+        ? iToString( static_cast<unsigned int>( value ) )
         : Detail::makeString( value );
 }
 
@@ -162,18 +179,10 @@ std::string toString( unsigned char value ) {
 
 #ifdef CATCH_CONFIG_CPP11_LONG_LONG
 std::string toString( long long value ) {
-    std::ostringstream oss;
-    oss << value;
-    if( value > Detail::hexThreshold )
-        oss << " (0x" << std::hex << value << ")";
-    return oss.str();
+    return iToString(value);
 }
 std::string toString( unsigned long long value ) {
-    std::ostringstream oss;
-    oss << value;
-    if( value > Detail::hexThreshold )
-        oss << " (0x" << std::hex << value << ")";
-    return oss.str();
+    return iToString(value);
 }
 #endif
 
